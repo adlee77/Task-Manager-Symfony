@@ -42,4 +42,14 @@ class TaskManagerController extends AbstractController
         
         return $this->redirectToRoute('task_manager');
     }
+    /**
+     * @Route("/delete/{id}", name="task_delete")
+     */
+    public function delete(Task $id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($id);
+        $entityManager->flush();
+        return $this->redirectToRoute('task_manager');
+    }
 }

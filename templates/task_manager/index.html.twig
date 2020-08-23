@@ -15,6 +15,7 @@
     {% for task in tasks %}
         <li>
             <span>test</span>
+            <span><a href="{{path('task_delete',{'id':task.id})}}"><button>Delete Task</button></a></span>
         </li>
     {% endfor %}
     </ul>
