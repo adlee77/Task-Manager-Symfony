@@ -2,27 +2,48 @@
 
 {% block title %}Hello TaskManagerController!{% endblock %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% endblock %}
+
 {% block body %}
-<div class="header">
-    <h2>Enter Task</h2>
-    <h3>*Note: Added tasks will automatically be labeled "incomplete"</h3>
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h2>Enter Task</h2>
+            <h3>*Note: Added tasks will automatically be labeled "incomplete"</h3>
+        </div>
+    </div>
+    <br>
     <form method="POST" action="{{path('create_task')}}">
-        <input name="task_name" type="text" placeholder="i.e. Error Test"/>
-        <button type="submit" class="addBtn">Add a task</button>
+        <div class="row">
+            <div class="col-8">
+                <input name="task_name" type="text" placeholder="i.e. Error Test"/>
+            </div>
+            <div class="col">
+                <button type="submit" class="addBtn">Add a task</button>
+            </div>
+        </div>
     </form>
+    <br>
+
     {# Tasks will go here #}
+    <div class="container">
     <ul>
     {% for task in tasks %}
         <li>
-            <span>{{ task.TaskName }}</span>
-            <span>{% if task.Incomplete != true %}Incomplete{% endif %}</span>
-            <span id="progress">{% if task.Inprogress != true %}Inprogress{% endif %}</span>
-            <span id="complete">{% if task.Complete != true %}Complete{% endif %}</span>
-            <span><a onclick="changeStatus()" href="{{path('edit_status',{'id':task.id})}}">Edit</a></span>
-            <span><a href="{{path('task_delete',{'id':task.id})}}"><button>Delete Task</button></a></span>
+            <div class="row">
+                <div class="col-3">{{ task.TaskName }}</div>
+                <div class="col-3">{% if task.Incomplete != true %}Incomplete{% endif %}</div>
+            {# <span id="progress">{% if task.Inprogress != true %}Inprogress{% endif %}</span>
+            <span id="complete">{% if task.Complete != true %}Complete{% endif %}</span> #}
+                <div class="col-2"><a href="{{path('edit_status',{'id':task.id})}}">Edit</a></div>
+                <div class="col-4"><a href="{{path('task_delete',{'id':task.id})}}"><button>Delete Task</button></a></div>
+            </div>
         </li>
     {% endfor %}
     </ul>
+    </div>
 </div>
 {% endblock %}
 
