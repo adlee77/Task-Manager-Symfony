@@ -52,4 +52,17 @@ class TaskManagerController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('task_manager');
     }
+    /**
+     * @Route("/edit_status/{id}", name="edit_status")
+     */
+    public function switchStatus($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $task = $entityManager->getRepository(Task::class)->find($id);
+        $task->setIncomplete(true);
+        $task->setInProgress(true);
+        $task->setComplete(true);
+        $entityManager->flush();
+        return $this->redirectToRoute('task_manager');
+    }
 }

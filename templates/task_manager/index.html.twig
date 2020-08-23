@@ -14,10 +14,16 @@
     <ul>
     {% for task in tasks %}
         <li>
-            <span>test</span>
+            <span>{{ task.TaskName }}</span>
+            <span>{% if task.Incomplete != true %}Incomplete{% endif %}</span>
+            <span id="progress">{% if task.Inprogress != true %}Inprogress{% endif %}</span>
+            <span id="complete">{% if task.Complete != true %}Complete{% endif %}</span>
+            <span><a onclick="changeStatus()" href="{{path('edit_status',{'id':task.id})}}">Edit</a></span>
             <span><a href="{{path('task_delete',{'id':task.id})}}"><button>Delete Task</button></a></span>
         </li>
     {% endfor %}
     </ul>
 </div>
 {% endblock %}
+
+
