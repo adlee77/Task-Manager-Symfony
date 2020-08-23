@@ -16,8 +16,10 @@ class TaskManagerController extends AbstractController
      */
     public function index()
     {
+        $tasks = $this->getDoctrine()->getRepository(Task::class)->findBy([], ['id'=>"DESC"]);
         return $this->render('task_manager/index.html.twig', [
             'controller_name' => 'TaskManagerController',
+            'tasks' => $tasks,
         ]);
     }
 
@@ -26,7 +28,7 @@ class TaskManagerController extends AbstractController
      */
     public function create(Request $request)
     {
-        $task_name = trim($request->request->get('title'));
+        $task_name = trim($request->request->get('task_name'));
         if(empty($task_name))
         return $this->redirectToRoute('task_manager');
         $entityManager = $this->redirectToRoute('task_manager');

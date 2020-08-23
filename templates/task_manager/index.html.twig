@@ -6,13 +6,17 @@
 <div class="header">
     <h2>Enter Task</h2>
     <h3>*Note: Added tasks will automatically be labeled "incomplete"</h3>
-    <form method="POST"  action="{{path('create_task')}}">
+    <form method="POST" action="{{path('create_task')}}">
         <input name="task_name" type="text" placeholder="i.e. Error Test"/>
         <button type="submit" class="addBtn">Add a task</button>
     </form>
     {# Tasks will go here #}
     <ul>
-        <li>Sample Task</li>
+    {% for task in tasks %}
+        <li>
+            <span>test</span>
+        </li>
+    {% endfor %}
     </ul>
 </div>
 {% endblock %}
