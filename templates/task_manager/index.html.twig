@@ -34,29 +34,37 @@
     {% for task in tasks %}
         <li>
             <div class="row">
-                <div class="col-3">{{ task.TaskName }}</div>
+                <div class="col-3">
+                    <div class="row">
+                        {{ task.TaskName }}
+                    </div>
+                    {# <div class="row">
+                        <a onclick="editName"><button>Edit Task Name</button></a>
+                        <div id="test"></div>
+                    </div> #}
+                </div>
                 <div class="col-1">
                     <div class="row">
                         <p {% if task.Incomplete != true %} class="current" {% endif %}>Incomplete</p>
                     </div>
                     <div class="row">
-                        <a href="{{path('edit_incomplete',{'id':task.id})}}"><button>Set Status</button></a>
+                        <a href="{{path('edit_incomplete',{'id':task.id})}}"><button>Set Incomplete</button></a>
                     </div>
                 </div>
                 <div class="col-1">
                     <div class="row">
-                        <p {% if task.InProgress != true %} class="current" {% endif %}>In Progress</p>
+                        <p {% if task.InProgress %} class="current" {% endif %}>In Progress</p>
                     </div>
                     <div class="row">
-                        <a href="{{path('edit_inprogress',{'id':task.id})}}"><button>Set Status</button></a>
+                        <a href="{{path('edit_inprogress',{'id':task.id})}}"><button>Set In Progress</button></a>
                     </div>
                 </div>
                 <div class="col-1">
                     <div class="row">
-                        <p {% if task.Complete != true %} class="current" {% endif %}>Complete</p>
+                        <p {% if task.Complete %} class="current" {% endif %}>Complete</p>
                     </div>
                     <div class="row">
-                        <a href="{{path('edit_complete',{'id':task.id})}}"><button>Set Status</button></a>
+                        <a href="{{path('edit_complete',{'id':task.id})}}"><button>Set Complete</button></a>
                     </div>
                 </div>
                 <div class="col-6 text-right"><a href="{{path('task_delete',{'id':task.id})}}"><button>Delete Task</button></a></div>
@@ -68,5 +76,7 @@
     </div>
 </div>
 {% endblock %}
+
+
 
 

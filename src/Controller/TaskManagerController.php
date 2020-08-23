@@ -60,8 +60,8 @@ class TaskManagerController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $task = $entityManager->getRepository(Task::class)->find($id);
         $task->setIncomplete(false);
-        $task->setInProgress(true);
-        $task->setComplete(true);
+        $task->setInProgress(false);
+        $task->setComplete(false);
         $entityManager->flush();
         return $this->redirectToRoute('task_manager');
     }
@@ -73,8 +73,8 @@ class TaskManagerController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $task = $entityManager->getRepository(Task::class)->find($id);
         $task->setIncomplete(true);
-        $task->setInProgress(false);
-        $task->setComplete(true);
+        $task->setInProgress(true);
+        $task->setComplete(false);
         $entityManager->flush();
         return $this->redirectToRoute('task_manager');
     }
@@ -86,8 +86,8 @@ class TaskManagerController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $task = $entityManager->getRepository(Task::class)->find($id);
         $task->setIncomplete(true);
-        $task->setInProgress(true);
-        $task->setComplete(false);
+        $task->setInProgress(false);
+        $task->setComplete(true);
         $entityManager->flush();
         return $this->redirectToRoute('task_manager');
     }
