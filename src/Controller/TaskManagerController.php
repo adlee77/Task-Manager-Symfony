@@ -53,16 +53,43 @@ class TaskManagerController extends AbstractController
         return $this->redirectToRoute('task_manager');
     }
     /**
-     * @Route("/edit_status/{id}", name="edit_status")
+     * @Route("/edit_incomplete/{id}", name="edit_incomplete")
      */
-    public function switchStatus($id)
+    public function switchIncomplete($id)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $task = $entityManager->getRepository(Task::class)->find($id);
-        $task->setIncomplete(true);
+        $task->setIncomplete(false);
         $task->setInProgress(true);
         $task->setComplete(true);
         $entityManager->flush();
         return $this->redirectToRoute('task_manager');
     }
+    /**
+     * @Route("/edit_inprogress/{id}", name="edit_inprogress")
+     */
+    public function switchInProgress($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $task = $entityManager->getRepository(Task::class)->find($id);
+        $task->setIncomplete(true);
+        $task->setInProgress(false);
+        $task->setComplete(true);
+        $entityManager->flush();
+        return $this->redirectToRoute('task_manager');
+    }
+    /**
+     * @Route("/edit_complete/{id}", name="edit_complete")
+     */
+    public function switchComplete($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $task = $entityManager->getRepository(Task::class)->find($id);
+        $task->setIncomplete(true);
+        $task->setInProgress(true);
+        $task->setComplete(false);
+        $entityManager->flush();
+        return $this->redirectToRoute('task_manager');
+    }
 }
+
