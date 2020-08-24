@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Task;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TaskManagerController extends AbstractController
 {
@@ -92,19 +94,47 @@ class TaskManagerController extends AbstractController
         return $this->redirectToRoute('task_manager');
     }
     /**
-     * @Route("/edit_task{id}", name="edit_task")
+     * @Route("/edit_task/{id}", name="todo_edit")
      */
-    public function updateTask(Request $request, $id)
+    public function editAction($id, Request $request)
     {
-        $task_name = trim($request->request->get('new_task_name'));
-        if(empty($task_name))
-        return $this->redirectToRoute('task_manager');
-        $entityManager = $this->getDoctrine()->getManager();
-        $task = $entityManager->getRepository(Task::class)->find($id);
-        $task->setTaskName('new_task_name');
-        $entityManager->flush();
-        dump($task);
-        return $this->redirectToRoute('task_manager');
-        
+        //fetch the data from db
+        $todo = $this->getDoctrine()
+            ->getRepository(Task::class)
+            ->find($id);
+
+
+        //create the edit form
+        $form = $this->createFormBuilder($todo)
+            ->add('TaskName', TextType::class, array('attr' => array('class' => 'form-control')))
+            ->add('save', SubmitType::class, array('label' => 'Update Todo', 'attr' => array('class' => 'btn btn-primary')))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        //when everything is ok
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            //fetch the data from form
+            $name = $form['TaskName']->getData();
+
+
+            $em = $this->getDoctrine()->getManager();
+            $todo = $em->getRepository(Task::class)->find($id);
+
+            //set the data
+            $todo->setTaskName($name);
+
+            //save data
+
+            $em->persist($todo);
+            $em->flush();
+
+
+            //redirect back to the list index
+            return $this->redirectToRoute('task_manager');
+        }
+
+        return $this->render('task_manager/edit.html.twig', array('form' => $form->createView()));
     }
 }

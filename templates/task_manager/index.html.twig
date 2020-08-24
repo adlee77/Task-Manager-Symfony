@@ -39,6 +39,7 @@
                 <div class="col-3">
                     <div class="row">
                         <h4 class="tasks1" id="{{ task.id }}">{{ task.TaskName }}</h4>
+                        <a id="edit" href="/edit_task/{{ task.id }}">Edit</a>
                     </div>
                 </div>
                 <div class="col-1">
@@ -65,7 +66,7 @@
                         <a href="{{path('edit_complete',{'id':task.id})}}"><button class="Btn progress1">Set Complete</button></a>
                     </div>
                 </div>
-                <div class="col-6 text-right"><a href="{{path('task_delete',{'id':task.id})}}"><button class="Btn">Delete Task</button></a></div>
+                <div class="col-6 text-center"><a href="{{path('task_delete',{'id':task.id})}}"><button class="Btn">Delete Task</button></a></div>
             </div>
         </li>
     {% endfor %}

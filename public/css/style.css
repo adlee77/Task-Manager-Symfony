@@ -4,6 +4,9 @@
 ul {
     list-style-type: none;
 }
+body{
+    background-color: #fcf2cb;
+}
 .Btn {
     background-color: #4CAF50; /* Green */
     border: none;
@@ -49,8 +52,14 @@ li{
 .tasks1{
     position: relative;
     left: 40px;
+    top: 30px;
 }
 .progress1, #incomp, #comp, #inprog{
     position: relative;
     left: 40%;
+}
+#edit{
+    position: relative;
+    top: 60px;
+    right: 30%;
 }
