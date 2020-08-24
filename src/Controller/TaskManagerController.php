@@ -8,6 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Task;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TaskManagerController extends AbstractController
@@ -103,11 +106,12 @@ class TaskManagerController extends AbstractController
             ->getRepository(Task::class)
             ->find($id);
 
+        $now = new \DateTime('now');
 
         //create the edit form
         $form = $this->createFormBuilder($todo)
-            ->add('TaskName', TextType::class, array('attr' => array('class' => 'form-control')))
-            ->add('save', SubmitType::class, array('label' => 'Update Todo', 'attr' => array('class' => 'btn btn-primary')))
+            ->add('TaskName', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
+            ->add('save', SubmitType::class, array('label' => 'Update Todo', 'attr' => array('class' => 'btn btn-primary', 'style' => 'margin-bottom:15px')))
             ->getForm();
 
         $form->handleRequest($request);
