@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TaskManagerController!{% endblock %}
+{% block title %}Task Manager{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -8,73 +8,76 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
+
+<div class="header">
     <div class="row">
         <div class="col text-center">
+        <br>
             <h2>Enter Task</h2>
             <h3>*Note: Added tasks will automatically be labeled "incomplete"</h3>
         </div>
     </div>
     <br>
     <form method="POST" action="{{path('create_task')}}">
-        <div class="row">
-            <div class="col-8">
-                <input name="task_name" type="text" placeholder="i.e. Error Test"/>
+        <div class="row text-center">
+            <div class="col-6">
+                <input id="taskEnter" name="task_name" type="text" placeholder="i.e. Error Test"/>
             </div>
-            <div class="col">
-                <button type="submit" class="addBtn">Add a task</button>
+            <div class="col-6">
+                <button type="submit" class="Btn">Add a task</button>
             </div>
         </div>
     </form>
-    <br>
+</div>
+
 
     {# Tasks will go here #}
-    <div class="container">
     <ul>
     {% for task in tasks %}
         <li>
-            <div class="row">
+            <div class="row task-row">
                 <div class="col-3">
                     <div class="row">
-                        {{ task.TaskName }}
-                    </div>
-                    {# <div class="row">
-                        <a onclick="editName"><button>Edit Task Name</button></a>
-                        <div id="test"></div>
-                    </div> #}
-                </div>
-                <div class="col-1">
-                    <div class="row">
-                        <p {% if task.Incomplete != true %} class="current" {% endif %}>Incomplete</p>
-                    </div>
-                    <div class="row">
-                        <a href="{{path('edit_incomplete',{'id':task.id})}}"><button>Set Incomplete</button></a>
+                        <h4 class="tasks1" id="{{ task.id }}">{{ task.TaskName }}</h4>
                     </div>
                 </div>
                 <div class="col-1">
                     <div class="row">
-                        <p {% if task.InProgress %} class="current" {% endif %}>In Progress</p>
+                        <p id="incomp" {% if task.Incomplete != true %} class="current" {% endif %}>Incomplete</p>
                     </div>
                     <div class="row">
-                        <a href="{{path('edit_inprogress',{'id':task.id})}}"><button>Set In Progress</button></a>
+                        <a href="{{path('edit_incomplete',{'id':task.id})}}"><button class="Btn progress1">Set Incomplete</button></a>
                     </div>
                 </div>
                 <div class="col-1">
                     <div class="row">
-                        <p {% if task.Complete %} class="current" {% endif %}>Complete</p>
+                        <p id="inprog" {% if task.InProgress %} class="current" {% endif %}>In Progress</p>
                     </div>
                     <div class="row">
-                        <a href="{{path('edit_complete',{'id':task.id})}}"><button>Set Complete</button></a>
+                        <a href="{{path('edit_inprogress',{'id':task.id})}}"><button id="progressbtn" class="Btn progress1">Set In Progress</button></a>
                     </div>
                 </div>
-                <div class="col-6 text-right"><a href="{{path('task_delete',{'id':task.id})}}"><button>Delete Task</button></a></div>
+                <div class="col-1">
+                    <div class="row">
+                        <p id="comp" {% if task.Complete %} class="current" {% endif %}>Complete</p>
+                    </div>
+                    <div class="row">
+                        <a href="{{path('edit_complete',{'id':task.id})}}"><button class="Btn progress1">Set Complete</button></a>
+                    </div>
+                </div>
+                <div class="col-6 text-right"><a href="{{path('task_delete',{'id':task.id})}}"><button class="Btn">Delete Task</button></a></div>
             </div>
         </li>
-        <br>
     {% endfor %}
     </ul>
-    </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="./js/logic.js"></script>
 {% endblock %}
 
 

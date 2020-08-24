@@ -91,5 +91,20 @@ class TaskManagerController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('task_manager');
     }
+    /**
+     * @Route("/edit_task{id}", name="edit_task")
+     */
+    public function updateTask(Request $request, $id)
+    {
+        $task_name = trim($request->request->get('new_task_name'));
+        if(empty($task_name))
+        return $this->redirectToRoute('task_manager');
+        $entityManager = $this->getDoctrine()->getManager();
+        $task = $entityManager->getRepository(Task::class)->find($id);
+        $task->setTaskName('new_task_name');
+        $entityManager->flush();
+        dump($task);
+        return $this->redirectToRoute('task_manager');
+        
+    }
 }
-

@@ -4,3 +4,53 @@
 ul {
     list-style-type: none;
 }
+.Btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 50px;
+    font-size: 14px;
+    padding: 10px;
+    margin: 5px;
+}
+#progressbtn{
+    margin-left: 0px;
+}
+h2, h3{
+    color: white;
+}
+/* Header */
+.header{
+    background-color: #1e4363;
+    border-bottom-style: solid;
+}
+#taskEnter{
+    width: 100%;
+    height: 50%;
+    left: 40%;
+    margin-bottom: 80px;
+    position: relative;
+}
+/* tasks */
+.task-row{
+    background: #fcf2cb;
+}
+ul{
+    width: 100%;
+    padding-left: 0px;
+}
+li{
+    padding-left: 5px;
+    border-bottom-style: solid;
+}
+.tasks1{
+    position: relative;
+    left: 40px;
+}
+.progress1, #incomp, #comp, #inprog{
+    position: relative;
+    left: 40%;
+}
