@@ -103,8 +103,6 @@ class TaskManagerController extends AbstractController
             ->getRepository(Task::class)
             ->find($id);
 
-        $now = new \DateTime('now');
-
         //create the edit form
         $form = $this->createFormBuilder($todo)
             ->add('TaskName', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'margin-bottom:15px')))
